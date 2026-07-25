@@ -16,26 +16,42 @@ Este proyecto implementa un pipeline completo de ML que incluye:
 
 ```
 Daily_Sports_Activities/
-├── Data/                           # Datos y modelos entrenados
-│   ├── dataset.csv                 # Dataset original
-│   ├── dataset_preprocesado.csv    # Datos limpios
-│   ├── dataset_final_features.csv  # Features finales
-│   ├── modelo_pca.pkl              # Transformador PCA
-│   ├── modelo_kpca.pkl             # Transformador Kernel PCA
-│   ├── modelo_scaler.pkl           # Escalador
-│   └── modelo_rf_select.pkl        # Random Forest selector
+├── notebooks/
+│   ├── 01_analisis_exploratorio/
+│   │   └── 01_Carga_y_Analisis_Descriptivo.ipynb
+│   ├── 02_preprocesamiento/
+│   │   └── 02_Preprocesamiento_y_Limpieza.ipynb
+│   ├── 03_feature_engineering/
+│   │   ├── 03_Extraccion_de_Caracteristicas.ipynb
+│   │   ├── 04_Param_LR_MLP.ipynb
+│   │   └── 04.Param_KPCA.ipynb
+│   ├── 04_modelos_individuales/
+│   │   ├── 05_LogisticRgression.ipynb
+│   │   ├── 05_MLPerceptron.ipynb
+│   │   └── 05_RandomForest.ipynb
+│   └── 05_ensembles/
+│       ├── 06_AdaBoost-Bosque.ipynb
+│       ├── 06_AdaBoost-KPCA.ipynb
+│       ├── 06_AdaBoost-PCA.ipynb
+│       ├── 06_AdaBoost-sin.ipynb
+│       ├── 06_Ensemble_HardW_Voting/
+│       ├── 06_Ensemble_HardW_Voting_KPCA/
+│       ├── 06_Ensemble_HardW_Voting_Sin/
+│       ├── 06_Ensemble_Soft_Voting/
+│       └── 06_Ensemble_Soft_Voting_KPCA/
 │
-├── Notebooks del Pipeline
-│   ├── 01_Carga_y_Analisis_Descriptivo.ipynb
-│   ├── 02_Preprocesamiento_y_Limpieza.ipynb
-│   ├── 03_Extraccion_de_Caracteristicas.ipynb
-│   ├── 04_Param_LR_MLP.ipynb       # Parametrizacion LR/MLP
-│   ├── 04.Param_KPCA.ipynb         # Parametrizacion KPCA
-│   ├── 05_LogisticRgression.ipynb  # Logistic Regression
-│   ├── 05_MLPerceptron.ipynb       # Multi-Layer Perceptron
-│   ├── 05_RandomForest.ipynb       # Random Forest
-│   ├── 06_AdaBoost-*.ipynb         # AdaBoost (4 variantes)
-│   └── 06_Ensemble_*               # Metodos de Ensemble
+├── data/
+│   ├── raw/
+│   │   └── dataset.csv
+│   └── processed/
+│       ├── dataset_preprocesado.csv
+│       └── dataset_final_features.csv
+│
+├── models/
+│   ├── modelo_pca.pkl
+│   ├── modelo_kpca.pkl
+│   ├── modelo_scaler.pkl
+│   └── modelo_rf_select.pkl
 │
 ├── requirements.txt
 ├── LICENSE
@@ -44,39 +60,31 @@ Daily_Sports_Activities/
 
 ## Pipeline de Machine Learning
 
-### 1. Analisis Exploratorio (01_Carga_y_Analisis_Descriptivo.ipynb)
+### 1. Analisis Exploratorio (notebooks/01_analisis_exploratorio/)
 - Carga del dataset
 - Estadisticas descriptivas
 - Visualizacion de distribuciones
 - Analisis de correlaciones
 
-### 2. Preprocesamiento (02_Preprocesamiento_y_Limpieza.ipynb)
+### 2. Preprocesamiento (notebooks/02_preprocesamiento/)
 - Manejo de valores faltantes
 - Deteccion y tratamiento de outliers
 - Normalizacion y estandarizacion
 - Balanceo de clases
 
-### 3. Feature Engineering (03_Extraccion_de_Caracteristicas.ipynb)
+### 3. Feature Engineering (notebooks/03_feature_engineering/)
 - Extraccion de caracteristicas temporales
 - Caracteristicas estadisticas
 - Seleccion de variables
+- Parametrizacion de modelos (LR, MLP, KPCA)
 
-### 4. Reduccion de Dimensionalidad
-- PCA (04_Param_LR_MLP.ipynb)
-- Kernel PCA (04.Param_KPCA.ipynb)
+### 4. Modelos Individuales (notebooks/04_modelos_individuales/)
+- Logistic Regression
+- Multi-Layer Perceptron
+- Random Forest
 
-### 5. Modelos Individuales
-- Logistic Regression (05_LogisticRgression.ipynb)
-- Multi-Layer Perceptron (05_MLPerceptron.ipynb)
-- Random Forest (05_RandomForest.ipynb)
-
-### 6. AdaBoost (4 variantes)
-- Sin reduccion dimensional (06_AdaBoost-sin.ipynb)
-- Con PCA (06_AdaBoost-PCA.ipynb)
-- Con KPCA (06_AdaBoost-KPCA.ipynb)
-- Con Random Forest (06_AdaBoost-Bosque.ipynb)
-
-### 7. Metodos de Ensemble
+### 5. Metodos de Ensemble (notebooks/05_ensembles/)
+- AdaBoost (4 variantes: sin/PCA/KPCA/Bosque)
 - Hard Voting (3 variantes: sin/PCA/KPCA)
 - Soft Voting (2 variantes: sin/KPCA)
 
@@ -97,14 +105,14 @@ Dependencias principales:
 
 ## Datos
 
-El dataset contiene actividades deportivas diarias con las siguientes caracteristicas:
-- dataset.csv: Datos originales (413MB)
-- dataset_preprocesado.csv: Datos limpios y preprocesados
-- dataset_final_features.csv: Features finales para modelado
+El dataset contiene actividades deportivas diarias:
+- data/raw/dataset.csv: Datos originales (413MB)
+- data/processed/dataset_preprocesado.csv: Datos limpios y preprocesados
+- data/processed/dataset_final_features.csv: Features finales para modelado
 
 ## Modelos Entrenados
 
-Los modelos entrenados estan guardados en formato .pkl en la carpeta Data/:
+Los modelos entrenados estan guardados en formato .pkl en la carpeta models/:
 - modelo_pca.pkl: Transformador PCA entrenado
 - modelo_kpca.pkl: Transformador Kernel PCA entrenado
 - modelo_scaler.pkl: Escalador (StandardScaler)
@@ -137,7 +145,7 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-4. Seguir el pipeline desde 01_Carga_y_Analisis_Descriptivo.ipynb
+4. Seguir el pipeline desde notebooks/01_analisis_exploratorio/01_Carga_y_Analisis_Descriptivo.ipynb
 
 ## Licencia
 
